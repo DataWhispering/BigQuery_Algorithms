@@ -1,0 +1,5 @@
+-- This function depends on the factorial function.
+--  I use "dbo" as my default BigQuery project.  This default is a nod to SQL Server's default schema.
+CREATE FUNCTION dbo.binomial_coefficient (n int, k int)
+AS
+((SELECT dbo.factorial(n)/( dbo.factorial(k)*dbo.factorial(n-k))))
