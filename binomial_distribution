@@ -1,0 +1,12 @@
+-- This BigQuery function lets you perform a binomial distribution calculation.
+-- In the example shown, the project is "dbo", but use whatever project name you would like
+-- The factorials function must already exist
+-- First parameter is number of trials, the second parameter is the exact number of successful trials you are seeking,
+-- and the third parameter is the chance of success of an individual trial, expressed as a decimal (such as .5).
+
+create or replace function dbo.binomial_dist (trials int, successes_desired int, probability float64)
+AS
+((   select 
+           (dbo.factorial(trials)/
+                                  (dbo.factorial(trials-successes_desired)*dbo.factorial(successes_desired)))*power(probability, successes_desired)* 
+                                  (power((1-probability), trials-successes_desired))))
